@@ -1,0 +1,52 @@
+<wsdl:definitions name="SampleWebService" targetNamespace="urn:demo:webservice:StudentEntity" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:demo:webservice:StudentEntity" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:types>
+        <s:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="urn:demo:webservice:StudentEntity">
+            <s:element name="StudentEntity">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element name="StudentId" type="s:string"/>
+                        <s:element name="StudentName" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="MarksEntity">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element name="English" type="s:int"/>
+                        <s:element name="Science" type="s:int"/>
+                        <s:element name="Maths" type="s:int"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="demoWebServiceRequest">
+        <wsdl:part name="demoWebServiceRequest" element="tns:StudentEntity"/>
+    </wsdl:message>
+    <wsdl:message name="demoWebServiceResponse">
+        <wsdl:part name="demoWebServiceResponse" element="tns:MarksEntity"/>
+    </wsdl:message>
+    <wsdl:portType name="demoWebServicePortType">
+        <wsdl:operation name="getStudentMarks"> <!-- Updated operation name -->
+            <wsdl:input message="tns:demoWebServiceRequest"/>
+            <wsdl:output message="tns:demoWebServiceResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="demoWebServiceSoapBinding" type="tns:demoWebServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getStudentMarks"> <!-- Updated operation name -->
+            <soap:operation soapAction="urn:demo:webservice:getStudentMarks" style="document"/> <!-- Specified SOAP action -->
+            <wsdl:input>
+                <soap:body use="literal" namespace="urn:demo:webservice:StudentEntity" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" namespace="urn:demo:webservice:StudentEntity" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SampleWebService">
+        <wsdl:port name="demoWebServiceSoap" binding="tns:demoWebServiceSoapBinding">
+            <soap:address location="http://example.com:8080/SampleWebService"/> <!-- Updated SOAP address location -->
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
