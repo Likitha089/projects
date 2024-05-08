@@ -7,6 +7,10 @@ import com.soap.assignment.student.marks.Configuration.soapProperties;
 import com.soap.assignment.student.marks.entity.MarksEntity;
 import com.soap.assignment.student.marks.entity.StudentEntity;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+
 @Component
 public class soapClient extends WebServiceGatewaySupport{
 	
@@ -17,9 +21,11 @@ public soapClient(soapProperties properties) {
     this.properties=properties;
 }
 
-public MarksEntity getStudentMarks(StudentEntity request) {
+public ResponseEntity getStudentMarks(StudentEntity request) {
     MarksEntity studentMarks = (MarksEntity) getWebServiceTemplate().marshalSendAndReceive(properties.getPath(),request);
     return studentMarks;
     
-}
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
 }

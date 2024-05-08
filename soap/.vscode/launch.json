@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MarksApplication<marks>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.soap.assignment.student.marks.MarksApplication",
+            "projectName": "marks",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
